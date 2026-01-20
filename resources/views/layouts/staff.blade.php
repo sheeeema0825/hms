@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>RoomEase • Guest</title>
+    <title>RoomEase • Staff</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -82,22 +82,22 @@
     <!-- LOGO -->
     <div class="px-6 py-6 border-b border-white/10">
         <h1 class="text-xl font-bold tracking-wide text-white">RoomEase</h1>
-        <p class="text-xs text-gray-400 mt-1">Guest Panel</p>
+        <p class="text-xs text-gray-400 mt-1">Staff Panel</p>
     </div>
 
     <!-- NAVIGATION -->
     <nav class="flex-1 px-4 py-6 space-y-1 text-sm">
-        <a href="/guest/dashboard" class="nav-item {{ request()->is('guest/dashboard') ? 'active' : '' }}">Dashboard</a>
-        <a href="/guest/book-room" class="nav-item {{ request()->is('guest/book-room') ? 'active' : '' }}">Book a Room</a>
-        <a href="/guest/bookings" class="nav-item {{ request()->is('guest/bookings') ? 'active' : '' }}">My Bookings</a>
-        <a href="/guest/payments" class="nav-item {{ request()->is('guest/payments') ? 'active' : '' }}">Payments</a>
-        <a href="/guest/profile" class="nav-item {{ request()->is('guest/profile') ? 'active' : '' }}">Profile</a>
-        <a href="/guest/support" class="nav-item {{ request()->is('guest/support') ? 'active' : '' }}">Support</a>
+        <a href="/staff/dashboard" class="nav-item {{ request()->is('staff/dashboard') ? 'active' : '' }}">Dashboard</a>
+        <a href="/staff/rooms" class="nav-item {{ request()->is('staff/rooms') ? 'active' : '' }}">Rooms</a>
+        <a href="/staff/bookings" class="nav-item {{ request()->is('staff/bookings') ? 'active' : '' }}">Bookings</a>
+        <a href="/staff/checks" class="nav-item {{ request()->is('staff/checks') ? 'active' : '' }}">Check-In Check-Out</a>
+        <a href="/staff/payments" class="nav-item {{ request()->is('staff/payments') ? 'active' : '' }}">Payments</a>
+        <a href="/staff/profile" class="nav-item {{ request()->is('staff/profile') ? 'active' : '' }}">Profile</a>
     </nav>
 
     <!-- FOOTER -->
     <div class="px-4 py-4 border-t border-white/10">
-        <form method="POST" action="/guest/logout">
+        <form method="POST" action="/staff/logout">
             @csrf
             <button
                 type="submit"
@@ -122,7 +122,7 @@
         </h2>
 
         <div class="flex items-center gap-3">
-            <span class="text-xs text-gray-400">Guest</span>
+            <span class="text-xs text-gray-400">Staff</span>
             <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600"></div>
         </div>
     </header>

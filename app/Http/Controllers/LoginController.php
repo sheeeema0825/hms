@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Guest;
+use App\Models\Staff;
 
 class LoginController extends Controller
 {
@@ -57,7 +58,10 @@ class LoginController extends Controller
     return view('admin.dashboard');
 }
 
-
+    public function staffDashboard()
+{
+    return view('staff.dashboard');
+}
    
 
    public function login(Request $request)
@@ -75,13 +79,13 @@ class LoginController extends Controller
         }
     }
 
-    // 2️⃣ Try Staff
-    // if (Staff::where('email', $credentials['email'])->exists()) {
-    //     if (Auth::guard('staff')->attempt($credentials)) {
-    //         $request->session()->regenerate();
-    //         return redirect()->route('staff.dashboard');
-    //     }
-    // }
+   // 2️⃣ Try Staff
+    if (Staff::where('email', $credentials['email'])->exists()) {
+        if (Auth::guard('staff')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('staff.dashboard');
+        }
+    }
 
     // 3️⃣ Try Guest
     if (Guest::where('email', $credentials['email'])->exists()) {
@@ -105,5 +109,21 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/guest/login');
+    }
+
+    public function adminLogout(Request $request)
+    {
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
+    }   
+
+    public function staffLogout(Request $request)
+    {
+        Auth::guard('staff')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
     }
 }

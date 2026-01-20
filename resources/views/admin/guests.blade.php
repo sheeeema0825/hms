@@ -23,7 +23,7 @@
         <span onclick="closeModal()"
             style="position:absolute;top:10px;right:14px;font-size:22px;cursor:pointer;">&times;</span>
 
-        <form action="/admin/guests" method="POST">
+        <form action="{{ route('guests.store') }}" method="POST">
             @csrf
 
             <input name="name" placeholder="Name" required class="input">
@@ -42,6 +42,41 @@
         </form>
     </div>
 </div>
+
+
+<!-- EDIT MODAL -->
+<div id="editGuestModal"
+    style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.55);z-index:60;">
+
+    <div
+        style="background:#020617;width:420px;padding:20px;border-radius:8px;margin:120px auto;color:white;position:relative;">
+
+        <h3>Edit Guest</h3>
+
+        <span onclick="closeEditModal()"
+            style="position:absolute;top:10px;right:14px;font-size:22px;cursor:pointer;">&times;</span>
+
+<form id="editGuestForm" method="POST">
+    @csrf
+    @method('PUT')
+
+
+            
+
+            <input name="name" id="edit_name" class="input" required>
+            <input name="email" id="edit_email" type="email" class="input" required>
+            <input name="phone" id="edit_phone" class="input" required>
+            <input name="national_id" id="edit_national_id" class="input" required>
+            <textarea name="address" id="edit_address" class="input"></textarea>
+
+            <div style="text-align:right;">
+                <button type="button" onclick="closeEditModal()" class="btn-gray">Cancel</button>
+                <button type="submit" class="btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 <!-- TABLE -->
 <table style="width:100%;margin-top:25px;border-collapse:collapse;background:#020617;">
@@ -67,16 +102,25 @@
 
             <td>
                 <!-- EDIT -->
-                <a href="/admin/guests"
-                    style="padding:6px 10px;background:#0f766e;color:white;border-radius:4px;text-decoration:none;margin-right:4px;">
-                    Edit
-                </a>
+                <button
+    onclick="openEditModal(
+        {{ $guest->id }},
+        '{{ $guest->name }}',
+        '{{ $guest->email }}',
+        '{{ $guest->phone }}',
+        '{{ $guest->national_id }}',
+        '{{ $guest->address }}'
+    )"
+    style="padding:6px 10px;background:#2563eb;color:white;border-radius:4px;border:none;cursor:pointer;margin-right:4px;">
+    Edit
+</button>
+
 
                 <!-- DELETE -->
-                <form action="/admin/guests"
+                <form action="{{ route('guests.destroy', $guest) }}"
                     method="POST" style="display:inline;">
-                    @csrf
                     @method('DELETE')
+                    @csrf
 
                     <button type="submit"
                         onclick="return confirm('Delete this guest?')"
@@ -135,5 +179,25 @@
         document.getElementById('guestModal').style.display = 'none';
     }
 </script>
+
+
+<script>
+    function openEditModal(id, name, email, phone, national_id, address) {
+        document.getElementById('editGuestModal').style.display = 'block';
+
+        document.getElementById('edit_name').value = name;
+        document.getElementById('edit_email').value = email;
+        document.getElementById('edit_phone').value = phone;
+        document.getElementById('edit_national_id').value = national_id;
+        document.getElementById('edit_address').value = address;
+
+        document.getElementById('editGuestForm').action = `/admin/guests/${id}`;
+    }
+
+    function closeEditModal() {
+        document.getElementById('editGuestModal').style.display = 'none';
+    }
+</script>
+
 
 @endsection

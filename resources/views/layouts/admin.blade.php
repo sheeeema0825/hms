@@ -77,7 +77,7 @@
     <!-- LOGO -->
     <div class="px-6 py-6 border-b border-white/10">
         <h1 class="text-xl font-bold tracking-wide text-white">RoomEase</h1>
-        <p class="text-xs text-gray-400 mt-1">Luxury Admin Panel</p>
+        <p class="text-xs text-gray-400 mt-1">Admin Panel</p>
     </div>
 
     <!-- NAVIGATION -->
@@ -92,7 +92,7 @@
 
     <!-- FOOTER -->
     <div class="px-4 py-4 border-t border-white/10">
-        <form method="POST" action="/logout">
+        <form method="POST" action="/admin/logout">
             @csrf
             <button
                 type="submit"

@@ -14,7 +14,7 @@
         <h3>Add Staff</h3>
         <span class="close" onclick="closeAddModal()">&times;</span>
 
-        <form method="POST" action="/admin/staff/action">
+        <form method="POST" action="/admin/staff/edit">
             @csrf
             <input type="hidden" name="action" value="add">
 
@@ -38,7 +38,7 @@
         <h3>Edit Staff</h3>
         <span class="close" onclick="closeEditModal()">&times;</span>
 
-        <form method="POST" action="/admin/staff/action">
+        <form method="POST" action="/admin/staff/edit">
             @csrf
             <input type="hidden" name="action" value="edit">
             <input type="hidden" name="id" id="edit-id">
@@ -74,7 +74,7 @@
     <td>
         <button onclick="openEditModal({{ $s->id }}, '{{ $s->name }}', '{{ $s->email }}', '{{ $s->phone }}')" class="btn-primary">Edit</button>
 
-        <form method="POST" action="/admin/staff/action" style="display:inline">
+        <form method="POST" action="/admin/staff/delete" style="display:inline">
             @csrf
             <input type="hidden" name="action" value="delete">
             <input type="hidden" name="id" value="{{ $s->id }}">
